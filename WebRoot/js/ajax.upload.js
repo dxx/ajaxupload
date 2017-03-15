@@ -237,7 +237,7 @@
 				}
 			}else if(_input.type != "submit" && _input.type != "button" && _input.type != "file"){
 				if(isJson){
-					jsonStr += "\"" + _input.name + "\":\"" + _input.value + "\",";	
+					jsonStr += "\"" + _input.name + "\":\"" + _input.value.replace(/\"/g, "\\\"") + "\",";	
 				}else{
 					paramArray.push(_input.name + "=" + _input.value);	
 				}
