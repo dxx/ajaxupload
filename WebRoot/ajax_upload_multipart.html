@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ajax上传文件</title>
+		<script type="text/javascript" src="js/ajax.upload.js"></script>
+	</head>
+	<body>
+		<form id="my_form" action="http://localhost:8080/ajaxupload/upload" method="post">
+			<p>
+				<label for="filename">filename:</label>
+				<input type="text" name="filename" id="filename"/>
+			</p>
+			<p>
+				<label for="file"></label>
+				<input type="file" name="file" id="file"/>
+			</p>
+			<p>
+				<input type="radio" name="sex" value="radio1"/>radio1
+				<input type="radio" name="sex" value="radio2"/>radio2<br/>
+			</p>
+			<p>
+				<input type="submit" value="upload"/>
+			</p>
+		</form>
+	</body>
+	<script type="text/javascript">
+		var ajaxUpload = new AjaxUpload("my_form", {
+			//当上传文件时，contentType必须设置为multipart/form-data, 请求为post
+			contentType: "multipart/form-data",
+			//可接受的文件类型
+			fileType: ['jpg', "jpeg", "png", "xls", "xlsx", "doc", "docx"],
+			//上传前回调
+			beforeUpload: function(){
+				alert("before upload");
+				//return false;  //阻止发送ajax;
+			},
+			//服务器响应成功回调
+			success: function(data){
+				var result = JSON.parse(data);
+				console.log(result);
+			},
+			//上传失败回调
+			failure: function(){
+				alert("upload failure");
+			}
+		});
+		/**
+		 * 注意：如果需要跨域，在服务器端设置响应头("Access-Control-Allow-Origin", "*");
+		 * ie11以下，带文件请求不支持跨域
+		 */
+	</script>
+</html>

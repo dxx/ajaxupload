@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ajax表单上传</title>
+		<script type="text/javascript" src="js/ajax.upload.js"></script>
+	</head>
+	<body>
+		<form action="http://localhost:8080/ajaxupload/form" id="my_form" method="post">
+			<p>
+				<label for="name">username:</label>
+				<input type="text" name="name" id="name"/>
+			</p>
+			<p>
+				<label for="pass">password:</label>
+				<input type="password" name="pass" id="pass"/>
+			</p>
+			<p>
+				<label>sex:</label>
+				<input type="radio" name="sex" value="1"/>male
+				<input type="radio" name="sex" value="2"/>female
+			</p>
+			<p>
+				<label>loves:</label>
+				<input type="checkbox" name="love" value="apple"/>apple
+				<input type="checkbox" name="love" value="pear"/>pear
+				<input type="checkbox" name="love" value="orange"/>orange
+			</p>
+			<p>
+				<label>profession:</label>
+				<select name="profession">
+					<option value="java">java</option>
+					<option value="javascript">javascript</option>
+					<option value="html5">html5</option>
+				</select>
+			</p>
+			<p>
+				<input type="submit" value="upload"/>
+			</p>
+		</form>
+	</body>
+	<script type="text/javascript">
+		var myForm = document.getElementById("my_form");
+		//创建AjaxUpload对象
+		var ajaxUpload = new AjaxUpload(myForm, {
+			//上传前回调
+			beforeUpload: function(){
+				//alert("before upload");
+			},
+			//服务器响应成功回调
+			success: function(data){
+				var result = JSON.parse(data);
+				console.log(result);
+			},
+			//上传失败回调
+			failure: function(){
+				alert("upload failure");
+			}
+		});
+		/**
+		 * 注意：如果需要跨域，在服务器端设置响应头("Access-Control-Allow-Origin", "*");
+		 */
+	</script>
+</html>
