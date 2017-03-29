@@ -34,6 +34,10 @@ public class FileServlet extends HttpServlet{
 					FileItem item = fileItems.get(i);
 					if(!item.isFormField()){
 						String directory = req.getServletContext().getRealPath("upload");
+						File direc = new File(directory);
+						if(!direc.exists()){
+							direc.mkdirs();
+						}
 						String fileName = String.valueOf(System.currentTimeMillis());
 						item.write(new File(directory + "/" + fileName + ".png"));
 					}else{
