@@ -6,7 +6,8 @@
 		<script type="text/javascript" src="js/ajax.upload.js"></script>
 	</head>
 	<body>
-		<form id="my_form" action="http://localhost:8080/ajaxupload/upload" method="post">
+		<!-- IE8 请设置enctype="multipart/form-data" -->
+		<form id="my_form" action="http://localhost:8080/ajaxupload/upload" method="post" enctype="multipart/form-data">
 			<p>
 				<label for="filename">filename:</label>
 				<input type="text" name="filename" id="filename"/>
