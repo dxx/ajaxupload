@@ -24,8 +24,10 @@
 				this._iframeForm();
 			}
 		}else{
-			
-			this.form.onsubmit = this._sendAjax.bind(this);
+			var _this = this;
+			this.form.onsubmit = function(){
+				return _this._sendAjax.call(_this);
+			}
 			
 		}
 		
@@ -93,6 +95,7 @@
 		},
 		_sendAjax: function(){
 			var xmlHttpRequest = this._getXMLHttpRequest();
+			var _this = this;
 			xmlHttpRequest.onreadystatechange = function(){
 				if(xmlHttpRequest.readyState == 0){
 					
@@ -104,12 +107,12 @@
 					
 				}else if(xmlHttpRequest.readyState == 4){  //finish
 					if(xmlHttpRequest.status == 200){
-						this.options.success(xmlHttpRequest.responseText);
+						_this.options.success(xmlHttpRequest.responseText);
 					}else{
-						this.options.failure();
+						_this.options.failure();
 					}
 				}
-			}.bind(this);
+			};
 			
 			var method = this.form.method;
 			var _url = this.form.action;
