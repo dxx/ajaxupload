@@ -242,9 +242,8 @@
 				if(isJson){
 					jsonStr += "\"" + _input.name + "\":\"" + _input.value.replace(/\"/g, "\\\"") + "\",";	
 				}else{
-					paramArray.push(_input.name + "=" + _input.value);	
+					paramArray.push(_input.name + "=" + encodeURI(_input.value));	
 				}
-				
 			}
 		}
 		var result;
