@@ -114,25 +114,25 @@
 				}
 			};
 			
-			var method = this.form.method;
-			var _url = this.form.action;
-			var param = "";
-			if(method == "post" && this.options.contentType == "application/json"){
-				//serialize to json
-				param = formSerialize(this.form, true);
-			}else if(method == "post"){
-				param = formSerialize(this.form);
-			}
-			if(method == "get"){
-				param = formSerialize(this.form);
-				_url = _url + "?" + param;
-			}
-			//open  asynchronous request
-			xmlHttpRequest.open(method.toUpperCase(), _url, true);
-			
-			//if beforeUpload not retrun false, execute upload
+			//if beforeUpload not return false, execute upload
 			if(this.options.beforeUpload() == false){
 			}else{
+				var method = this.form.method;
+				var _url = this.form.action;
+				var param = "";
+				if(method == "post" && this.options.contentType == "application/json"){
+					//serialize to json
+					param = formSerialize(this.form, true);
+				}else if(method == "post"){
+					param = formSerialize(this.form);
+				}
+				if(method == "get"){
+					param = formSerialize(this.form);
+					_url = _url + "?" + param;
+				}
+				//open  asynchronous request
+				xmlHttpRequest.open(method.toUpperCase(), _url, true);
+			
 				//send
 				if(method == "post"){
 					xmlHttpRequest.setRequestHeader("Content-Type", this.options.contentType + "; charset=UTF-8");
@@ -146,7 +146,6 @@
 			return false;
 		},
 		_ajaxForm: function(){
-			var formData = new FormData(this.form);
 			//get XMLHttpRequest object
 			var xmlHttpRequest = this._getXMLHttpRequest();
 			
@@ -168,12 +167,13 @@
 				}
 			}.bind(this);
 			
-			//open  asynchronous request
-			xmlHttpRequest.open("POST", this.form.action, true);
-			
-			//if beforeUpload not retrun false, execute upload
+			//if beforeUpload not return false, execute upload
 			if(this.options.beforeUpload() == false){
 			}else{
+				var formData = new FormData(this.form);
+
+				//open  asynchronous request
+				xmlHttpRequest.open("POST", this.form.action, true);
 				//send formData
 				xmlHttpRequest.send(formData);
 			}
@@ -242,7 +242,7 @@
 				if(isJson){
 					jsonStr += "\"" + _input.name + "\":\"" + _input.value.replace(/\"/g, "\\\"") + "\",";	
 				}else{
-					paramArray.push(_input.name + "=" + encodeURI(_input.value));	
+					paramArray.push(_input.name + "=" + encodeURIComponent(_input.value));	
 				}
 			}
 		}
